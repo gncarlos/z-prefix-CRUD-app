@@ -4,7 +4,7 @@ const useStyles = makeStyles({
   root: {
 
   },
-  container: {
+  mainQuoteArea: {
     marginTop: '50px'
   },
   title: {

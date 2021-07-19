@@ -6,7 +6,7 @@ const MainQuoteArea = () => {
   const classes = useStyles();
 
   return(
-    <div className={classes.container}>
+    <div className={classes.mainQuoteArea}>
       <Container maxWidth='sm'>
         <Typography
         variant='h3'
