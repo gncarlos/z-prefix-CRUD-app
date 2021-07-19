@@ -1,10 +1,24 @@
+import { useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import useStyles from '../styles'
+import CreateQuote from './CreateQuote'
+import SavedQuotes from './SavedQuotes'
 
 const MainQuoteArea = () => {
   const classes = useStyles();
 
+  const [recent, setRecent] = useState(false)
+
+  const handleClickSave = () => {
+
+    setRecent(true)
+  }
+  const showRecent = () => {
+    if (recent === true) {
+      return (<SavedQuotes/>)
+    }
+  }
   return(
     <div className={classes.mainQuoteArea}>
       <Container maxWidth='sm'>
@@ -42,6 +56,7 @@ const MainQuoteArea = () => {
                 <Button
                   className={classes.button}
                   variant='contained'
+                  onClick={handleClickSave}
                   >
                     Save quote
                 </Button>
@@ -51,17 +66,13 @@ const MainQuoteArea = () => {
                     Another one
                 </Button>
                 <div align='center'>
-                <Button
-                  className={classes.button}
-                  variant='contained'
-                  color='primary'>
-                    Create a quote
-                </Button>
+                  <CreateQuote />
                 </div>
               </Grid>
           </Grid>
         </div>
       </Container>
+      {showRecent()}
     </div>
   )
 }

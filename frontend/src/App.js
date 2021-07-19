@@ -10,7 +10,7 @@ function App() {
       <main>
         <CssBaseline />
         <MainQuoteArea />
-        <SavedQuotes />
+        {/* <SavedQuotes /> */}
       </main>
     </>
   );

@@ -9,7 +9,7 @@ const SavedQuotes = () => {
     <>
       <Container maxWidth='md' className={classes.cardGrid}>
         <Typography variant='h5' gutterBottom>
-          Saved quotes:
+          Saved Quotes:
         </Typography>
         <Grid container direction='row' spacing={4}>
           <Quotes/>
