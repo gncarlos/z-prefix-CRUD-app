@@ -1,11 +1,12 @@
 
-const connectionString = process.env.DB_CONNECTION_STRING;
+const devConnectionString = process.env.DB_CONNECTION_STRING;
+const prodConnectionString = process.env.DATABASE_URL;
 
 module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://postgres:docker@localhost/quotes_for_you_dev'
+    connection: devConnectionString ||'postgres://postgres:docker@localhost/quotes_for_you_dev'
   },
 
   staging: {
@@ -25,11 +26,12 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      prodConnectionString,
+      ssl: {
+        rejectUnauthorized: false
+      }
     },
     pool: {
       min: 2,
