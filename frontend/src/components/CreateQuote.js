@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import useStyles from '../styles'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const CreateQuote = () => {
-  const [open, setOpen] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [newQuote, setNewQuote] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const classes = useStyles();
@@ -13,10 +16,11 @@ const CreateQuote = () => {
                             We prefer to avoid it but we can use them.`
 
   const handleClickCreateAQuote = () => {
-    setOpen(true);
+    setDialogOpen(true)
   }
   const handleClose = () => {
-    setOpen(false);
+    setAlert(false);
+    setDialogOpen(false);
   }
   const handleClickCreate = () => {
     let newQuoteObject = {
@@ -32,7 +36,7 @@ const CreateQuote = () => {
       body: JSON.stringify(newQuoteObject)
     })
     .catch(err => console.log(err))
-    .then(handleClose())
+    setAlert(true)
   }
 
   return (
@@ -45,7 +49,7 @@ const CreateQuote = () => {
         onClick={handleClickCreateAQuote}>
           Create a quote
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={dialogOpen} onClose={handleClose}>
         <DialogTitle>Create a Quote</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -57,6 +61,8 @@ const CreateQuote = () => {
             id="quote"
             label="Quote"
             type="text"
+            multiline={true}
+            rows={2}
             fullWidth
             onChange={(e)=> setNewQuote(e.target.value)}
           />
@@ -77,9 +83,18 @@ const CreateQuote = () => {
           <Button onClick={handleClickCreate} color="primary">
             Create
           </Button>
+          <Snackbar open={alert} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Your quote was created!
+            </Alert>
+          </Snackbar>
         </DialogActions>
       </Dialog>
     </>
   )
 }
 export default CreateQuote
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}

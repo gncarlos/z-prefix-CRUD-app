@@ -12,7 +12,14 @@ router.get('/quotes', (req, res, next) => {
     .from("quotes")
     .then(data => res.status(200).send(data))
 })
-
+router.get('/created', (req, res) => {
+  console.log("GET created quotes started")
+  knex.select('id','quote', 'author')
+    .from('quotes')
+    .where({user_created: true})
+    .then(data => res.status(200).send(data))
+    .catch(err => console.log(err))
+})
 router.post('/new-quote', (req, res) => {
   const { quote, author, user_created } = req.body
 

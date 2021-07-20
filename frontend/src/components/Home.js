@@ -3,22 +3,23 @@ import { Container, Grid } from '@material-ui/core';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import useStyles from '../styles'
 import CreateQuote from './CreateQuote'
-import SavedQuotes from './SavedQuotes'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const Home = () => {
   const classes = useStyles();
-
-  // const [recent, setRecent] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleClickSave = () => {
-
-    // setRecent(true)
+    setOpen(true);
   }
-  // const showRecent = () => {
-  //   if (recent === true) {
-  //     return (<SavedQuotes/>)
-  //   }
-  // }
+  const handleClose = (e, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   return(
     <div className={classes.mainQuoteArea}>
       <Container maxWidth='sm'>
@@ -56,10 +57,14 @@ const Home = () => {
                 <Button
                   className={classes.button}
                   variant='contained'
-                  onClick={handleClickSave}
-                  >
+                  onClick={handleClickSave}>
                     Save quote
                 </Button>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="success">
+                    Your quote was saved!
+                  </Alert>
+                </Snackbar>
                 <Button
                   className={classes.button}
                   variant='contained'>
@@ -72,8 +77,11 @@ const Home = () => {
           </Grid>
         </div>
       </Container>
-      {/* {showRecent()} */}
     </div>
   )
 }
 export default Home
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
