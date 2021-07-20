@@ -5,20 +5,20 @@ import useStyles from '../styles'
 import CreateQuote from './CreateQuote'
 import SavedQuotes from './SavedQuotes'
 
-const MainQuoteArea = () => {
+const Home = () => {
   const classes = useStyles();
 
-  const [recent, setRecent] = useState(false)
+  // const [recent, setRecent] = useState(false)
 
   const handleClickSave = () => {
 
-    setRecent(true)
+    // setRecent(true)
   }
-  const showRecent = () => {
-    if (recent === true) {
-      return (<SavedQuotes/>)
-    }
-  }
+  // const showRecent = () => {
+  //   if (recent === true) {
+  //     return (<SavedQuotes/>)
+  //   }
+  // }
   return(
     <div className={classes.mainQuoteArea}>
       <Container maxWidth='sm'>
@@ -72,8 +72,8 @@ const MainQuoteArea = () => {
           </Grid>
         </div>
       </Container>
-      {showRecent()}
+      {/* {showRecent()} */}
     </div>
   )
 }
-export default MainQuoteArea
+export default Home
