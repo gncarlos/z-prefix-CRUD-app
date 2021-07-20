@@ -1,8 +1,10 @@
 import { makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  root: {
-
+  body: {
+    height: '100%',
+    paddingBottom: '60px',
+    minHeight:"100%"
   },
   mainQuoteArea: {
     marginTop: '50px'
@@ -18,6 +20,7 @@ const useStyles = makeStyles({
   },
   card: {
 
-  }
+  },
+
 })
 export default useStyles

@@ -6,13 +6,11 @@ import SavedQuotes from './components/SavedQuotes';
 function App() {
 
   return (
-    <>
-      <main>
+    <div>
         <CssBaseline />
         <MainQuoteArea />
         {/* <SavedQuotes /> */}
-      </main>
-    </>
+    </div>
   );
 }
 

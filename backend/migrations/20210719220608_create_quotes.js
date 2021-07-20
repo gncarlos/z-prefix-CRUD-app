@@ -1,10 +1,10 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable('quotes', table => {
-    table.increments('id'); // adds an auto incrementing PK column
-    table.string('quote').notNullable();
+    table.increments('id').primary(); // adds an auto incrementing PK column
+    table.string('quote');
     table.string('author');
-    table.timestamps(true, true); // adds created_at and updated_at
+    table.boolean('user_created')
   });
 };
 
