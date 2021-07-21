@@ -50,7 +50,7 @@ const NavBar = (props) => {
               <MenuItem onClick={()=>handleClose('/created-quotes')}>Created Quotes</MenuItem>
             </Menu>
           </div>
-          <Typography variant="h6" className={classes.title}>
+          <Typography className={classes.title}>
           </Typography>
           {/* <Button>Login</Button> */}
         </Toolbar>

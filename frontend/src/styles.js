@@ -21,6 +21,18 @@ const useStyles = makeStyles({
   card: {
 
   },
-
+  icon: {
+    fontSize: 'inherit'
+  },
+  paperQuote: {
+    margin: '5px 0',
+    padding: '10px'
+  },
+  quote: {
+    flexGrow: 1
+  },
+  temp: {
+  align: 'right'
+  }
 })
 export default useStyles

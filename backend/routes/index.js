@@ -21,8 +21,6 @@ router.get('/created', (req, res) => {
     .catch(err => console.log(err))
 })
 router.post('/new-quote', (req, res) => {
-  const { quote, author, user_created } = req.body
-
   knex('quotes')
     .insert(req.body)
     .then(data => res.status(200).send('Quote created'))

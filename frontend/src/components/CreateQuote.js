@@ -6,11 +6,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 const CreateQuote = () => {
+  const classes = useStyles();
   const [alert, setAlert] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [newQuote, setNewQuote] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
-  const classes = useStyles();
+
 
   const authorHelperText = `If you don't know the author type Anonymous.
                             We prefer to avoid it but we can use them.`
