@@ -28,16 +28,29 @@ router.post('/new-quote', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.patch('/created', (req, res) => {
+router.patch('/', (req, res) => {
   console.log('PATCH started')
-  knex('quotes')
+  console.log(req.body.id)
+  if(req.body.quote !== undefined) {
+    knex('quotes')
     .where({
       id: req.body.id,
       user_created: true
     })
-    .update(req.body)
-    .then(() => res.status.(200).send('Updated'))
+    .update({quote: req.body.quote})
+    .then(() => res.status(200).send('Updated'))
     .catch(err => console.log(err))
+  }
+  if(req.body.author !== undefined) {
+    knex('quotes')
+    .where({
+      id: req.body.id,
+      user_created: true
+    })
+    .update({author: req.body.author})
+    .then(() => res.status(200).send('Updated'))
+    .catch(err => console.log(err))
+  }
 })
 
 router.delete('/', (req, res) => {

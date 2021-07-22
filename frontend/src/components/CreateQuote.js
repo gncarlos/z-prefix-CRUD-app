@@ -65,7 +65,7 @@ const CreateQuote = () => {
             multiline={true}
             rows={2}
             fullWidth
-            onChange={(e)=> setNewQuote(e.target.value)}
+            onChange={(e) => setNewQuote(e.target.value)}
           />
           <TextField
             margin="dense"
