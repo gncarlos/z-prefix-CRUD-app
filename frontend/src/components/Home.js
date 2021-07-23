@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import useStyles from '../styles'
 import CreateQuote from './CreateQuote'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const Home = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [quotesArray, setQuotesArray] = useState([0]);
+  const [loaded, setLoaded] = useState(false)
+  const [counter, setCounter] = useState(0);
 
   const handleClickSave = () => {
     setOpen(true);
@@ -17,9 +22,21 @@ const Home = () => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
+  const getQuoteOfDay = async () => {
+    setLoaded(true)
+    await fetch('http://localhost:3001/quotes')
+            .then(data => data.json())
+            .then(json => setQuotesArray(json))
+            .catch(err => console.log(err))
+    setLoaded(false)
+  }
+
+  useEffect(() => {
+    getQuoteOfDay()
+  },[])
+
   return(
     <div className={classes.mainQuoteArea}>
       <Container maxWidth='sm'>
@@ -33,19 +50,34 @@ const Home = () => {
           <CardContent>
             <Typography
               className={classes.title}
+              color='textSecondary'
               gutterBottom>
               Quote of the Day:
             </Typography>
-            <Typography
-              variant='h5'
-              align='center'>
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            </Typography>
-            <Typography
-              align='right'
-              color='textSecondary'>
-              -Author
-            </Typography>
+            {  loaded ?
+            (<div align='center' className="sweet-loading">
+                <Loader
+                  type="Bars"
+                  color="#00BFFF"
+                  height={50}
+                  width={50}
+                  timeout={30000} //3 secs
+                />
+              </div>)
+            :
+            (<div>
+              <Typography
+                variant='h5'
+                align='center'>
+                "{quotesArray[0].quote}"
+              </Typography>
+              <Typography
+                align='right'
+                color='textSecondary'>
+                -{quotesArray[0].author}
+              </Typography>
+             </div>)
+            }
           </CardContent>
         </Card>
         <div>
