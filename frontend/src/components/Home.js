@@ -3,15 +3,22 @@ import { Container, Grid } from '@material-ui/core';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import useStyles from '../styles'
 import CreateQuote from './CreateQuote'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 const Home = () => {
-  const classes = useStyles()
-  const [quotesArray, setQuotesArray] = useState([0])
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [quotesArray, setQuotesArray] = useState([0]);
   const [loading, setLoading] = useState(false)
   const [counter, setCounter] = useState(0);
   const [lastQuote, setLastQuote] = useState(false)
 
+  const handleClickSave = () => {
+    setOpen(true);
+  }
   const handleClickAnother = () => {
     if (counter < quotesArray.length - 1){
       setCounter(counter + 1)
@@ -20,6 +27,12 @@ const Home = () => {
       setLastQuote(true)
     }
   }
+  const handleClose = (e, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   const getQuoteOfDay = async () => {
     setLoading(true)
     await fetch('http://localhost:3001/quotes')
@@ -86,6 +99,17 @@ const Home = () => {
                 <Button
                   className={classes.button}
                   variant='contained'
+                  onClick={handleClickSave}>
+                    Save quote
+                </Button>
+                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="success">
+                    Your quote was saved!
+                  </Alert>
+                </Snackbar>
+                <Button
+                  className={classes.button}
+                  variant='contained'
                   disabled={lastQuote ? true : false}
                   onClick={handleClickAnother}>
                     Another one
@@ -101,3 +125,7 @@ const Home = () => {
   )
 }
 export default Home
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
