@@ -35,6 +35,7 @@ const CreatedQuotes = () => {
     setUpdatedQuote({})
   }
   const handleChange = (e) => {
+
     const value = e.target.value
     setUpdatedQuote(
       {...updatedQuote,
@@ -68,9 +69,7 @@ const CreatedQuotes = () => {
     .then(()=>setUpdateFlag(!updateFlag))
     getQuotes()
   }
-
   const getQuotes = () => {
-
     return quotes.map((quote, index) => {
       return (
           <Paper className={classes.paperQuote}>
@@ -139,8 +138,7 @@ const CreatedQuotes = () => {
         </Typography>
         {getQuotes()}
       </Container>
-    </div>
-  )
+    </div>)
 }
 
 export default CreatedQuotes;
