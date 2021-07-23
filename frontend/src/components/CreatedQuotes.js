@@ -28,7 +28,6 @@ const CreatedQuotes = () => {
   const handleClickEdit = () => {
     console.log('edit', updatedQuote)
     setDialogOpen(true)
-
   }
   const handleClose = () => {
     setAlert(false);
@@ -36,7 +35,6 @@ const CreatedQuotes = () => {
     setUpdatedQuote({})
   }
   const handleChange = (e) => {
-
     const value = e.target.value
     setUpdatedQuote(
       {...updatedQuote,
@@ -58,9 +56,7 @@ const CreatedQuotes = () => {
     .then(()=>setUpdateFlag(!updateFlag))
     setAlert(true)
     getQuotes()
-
   }
-
   const handleClickDelete = (quoteId, index) => {
     fetch('http://localhost:3001/', {
       method: 'DELETE',
@@ -72,6 +68,7 @@ const CreatedQuotes = () => {
     .then(()=>setUpdateFlag(!updateFlag))
     getQuotes()
   }
+
   const getQuotes = () => {
 
     return quotes.map((quote, index) => {
@@ -132,7 +129,7 @@ const CreatedQuotes = () => {
       })
   }
 
-  return (<>
+  return (
     <div>
       <Container maxWidth='md'>
         <Typography
@@ -143,8 +140,7 @@ const CreatedQuotes = () => {
         {getQuotes()}
       </Container>
     </div>
-
-  </>)
+  )
 }
 
 export default CreatedQuotes;

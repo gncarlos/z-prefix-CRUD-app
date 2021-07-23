@@ -3,34 +3,30 @@ import { Container, Grid } from '@material-ui/core';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import useStyles from '../styles'
 import CreateQuote from './CreateQuote'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 const Home = () => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [quotesArray, setQuotesArray] = useState([0]);
-  const [loaded, setLoaded] = useState(false)
+  const classes = useStyles()
+  const [quotesArray, setQuotesArray] = useState([0])
+  const [loading, setLoading] = useState(false)
   const [counter, setCounter] = useState(0);
+  const [lastQuote, setLastQuote] = useState(false)
 
-  const handleClickSave = () => {
-    setOpen(true);
-  }
-  const handleClose = (e, reason) => {
-    if (reason === 'clickaway') {
-      return;
+  const handleClickAnother = () => {
+    if (counter < quotesArray.length - 1){
+      setCounter(counter + 1)
     }
-    setOpen(false);
-  };
+    if (counter + 1 === quotesArray.length -1) {
+      setLastQuote(true)
+    }
+  }
   const getQuoteOfDay = async () => {
-    setLoaded(true)
+    setLoading(true)
     await fetch('http://localhost:3001/quotes')
             .then(data => data.json())
             .then(json => setQuotesArray(json))
             .catch(err => console.log(err))
-    setLoaded(false)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -54,14 +50,14 @@ const Home = () => {
               gutterBottom>
               Quote of the Day:
             </Typography>
-            {  loaded ?
+            {  loading ?
             (<div align='center' className="sweet-loading">
                 <Loader
                   type="Bars"
                   color="#00BFFF"
                   height={50}
                   width={50}
-                  timeout={30000} //3 secs
+                  timeout={30000}
                 />
               </div>)
             :
@@ -69,12 +65,12 @@ const Home = () => {
               <Typography
                 variant='h5'
                 align='center'>
-                "{quotesArray[0].quote}"
+                "{quotesArray[counter].quote}"
               </Typography>
               <Typography
                 align='right'
                 color='textSecondary'>
-                -{quotesArray[0].author}
+                -{quotesArray[counter].author}
               </Typography>
              </div>)
             }
@@ -84,22 +80,14 @@ const Home = () => {
           <Grid
             container
             spacing={2}
+            align='center'
             justifyContent='center'>
               <Grid item>
                 <Button
                   className={classes.button}
                   variant='contained'
-                  onClick={handleClickSave}>
-                    Save quote
-                </Button>
-                <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="success">
-                    Your quote was saved!
-                  </Alert>
-                </Snackbar>
-                <Button
-                  className={classes.button}
-                  variant='contained'>
+                  disabled={lastQuote ? true : false}
+                  onClick={handleClickAnother}>
                     Another one
                 </Button>
                 <div align='center'>
@@ -113,7 +101,3 @@ const Home = () => {
   )
 }
 export default Home
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}

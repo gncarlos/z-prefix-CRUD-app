@@ -46,7 +46,7 @@ const NavBar = (props) => {
               onClose={handleClose}
             >
               <MenuItem onClick={()=>handleClose('/')}>Home</MenuItem>
-              <MenuItem onClick={()=>handleClose('/saved-quotes')}>Saved Quotes</MenuItem>
+              {/* <MenuItem onClick={()=>handleClose('/saved-quotes')}>Saved Quotes</MenuItem> */}
               <MenuItem onClick={()=>handleClose('/created-quotes')}>Created Quotes</MenuItem>
             </Menu>
           </div>
